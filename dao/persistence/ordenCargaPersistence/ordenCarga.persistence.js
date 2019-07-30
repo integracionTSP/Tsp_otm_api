@@ -45,11 +45,16 @@ const querygetPowerDriver = "SELECT DISTINCT POWER_UNIT_GID, DRIVER_GID " +
     const queryAllData = "SELECT POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DEST_LOCATION_GID   FROM OTM.OT_SHIPMENT_BUY";
 
 
+    const queryAllUserPass = "SELECT idusuario, claveencr FROM Usuarios"
+
+
 module.exports = {
     querygetDriverDest,
     querygetDistintDest,
     querygetPowerDriver,
-    queryAllData
+    queryAllData,
+    queryAllUserPass
+
     
 }
 

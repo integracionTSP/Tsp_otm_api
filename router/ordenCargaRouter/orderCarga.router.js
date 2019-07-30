@@ -7,6 +7,7 @@ app.get('/api/ordenCarga/getAsociados/:POWER_UNIT_GID/:DRIVER_GID', ordenCargaCt
 app.get('/api/ordenCarga/getDistintos/:POWER_UNIT_GID/:DRIVER_GID', ordenCargaCtr.getDestinosDistintos);
 app.get('/api/ordenCarga/getPlacaId/:POWER_UNIT_GID/:DRIVER_GID', ordenCargaCtr.getPlacasIdent);
 app.get('/api/ordenCarga/getTodoDatos', ordenCargaCtr.getTodoDatos);
+app.get('/api/ordenCarga/getAllUserPass', ordenCargaCtr.getAllUserPass);
 
 
 
