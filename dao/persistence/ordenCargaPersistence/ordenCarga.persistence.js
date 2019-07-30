@@ -40,10 +40,16 @@ const querygetPowerDriver = "SELECT DISTINCT POWER_UNIT_GID, DRIVER_GID " +
     "FECHA_ORDER_RELEASE::DATE != NOW()::DATE";
 
 
+    //Todos los datos
+
+    const queryAllData = "SELECT POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DEST_LOCATION_GID   FROM OTM.OT_SHIPMENT_BUY";
+
+
 module.exports = {
     querygetDriverDest,
     querygetDistintDest,
-    querygetPowerDriver
+    querygetPowerDriver,
+    queryAllData
     
 }
 

@@ -98,8 +98,42 @@ const getPlacasIdent = (request, response) => {
   
 }
 
+
+
+
+
+// todos los datos
+const getTodoDatos = (request, response) => {
+
+    
+
+    console.log("Entrando a getTodoDatos");
+    pool.query(ordenCargaPersistence.queryAllData , (error, results) => {
+        if (error) {
+            response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
+            console.log("Error en ordenCargaController.js =>  getTodoDatos");
+            console.log(error);
+            
+        } else {
+            if (results.rows.length > 0) {
+                response.send(JSON.stringify({ "status": 200, "error": null, "response": results.rows }));
+                console.log(results.rows);
+            } else {
+                response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
+                console.log("No existe movimiento con datos ingresados");
+            }
+            
+        }
+        
+    });
+
+  
+}
+
 module.exports = {
     getDestinosAsociados,
     getDestinosDistintos,
-    getPlacasIdent
+    getPlacasIdent,
+    getTodoDatos
+
 }
