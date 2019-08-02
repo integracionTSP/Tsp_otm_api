@@ -1,11 +1,14 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
+app.set('json spaces', 4);
+app.use(morgan('combined'));
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
-    extended: true,
+    extended: false
   })
 )
 
@@ -26,5 +29,5 @@ app.get('/', (req, res) => {
 
 module.exports = {
 
-    app
+  app
 }

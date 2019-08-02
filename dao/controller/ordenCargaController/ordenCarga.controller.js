@@ -14,6 +14,7 @@ const getDestinosAsociados = (request, response) => {
     console.log("Entrando a getDestinosAsociados");
     pool.query(ordenCargaPersistence.querygetDriverDest, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
         if (error) {
+        
             response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
             console.log("Error en ordenCargaController.js => getDestinosAsociados");
             console.log(error);
