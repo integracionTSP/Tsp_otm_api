@@ -9,6 +9,9 @@ app.get('/api/ordenCarga/getDistintos/:POWER_UNIT_GID/:DRIVER_GID', ordenCargaCt
 app.get('/api/ordenCarga/getPlacaId/:POWER_UNIT_GID/:DRIVER_GID', ordenCargaCtr.getPlacasIdent);
 app.get('/api/ordenCarga/getTodoDatos', ordenCargaCtr.getTodoDatos);
 app.get('/api/ordenCarga/getAllUserPass', ordenCargaCtr.getAllUserPass);
+app.get('/api/ordenCarga/getPrintShipment/:POWER_UNIT_GID/:DRIVER_GID/:SOURCE_LOCATION_GID/:DEST_LOCATION_GID', ordenCargaCtr.getPrintShipment)
+app.get('/api/ordenCarga/getDriverValid/:DRIVER_GID', ordenCargaCtr.getDriverValid);
+app.get('/api/ordenCarga/getPowerValid/:PLACA', ordenCargaCtr.getPowerValid);
 
 
 

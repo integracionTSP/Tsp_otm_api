@@ -8,7 +8,6 @@ const querygetDriverDest = "SELECT DISTINCT SOURCE_LOCATION_GID, DEST_LOCATION_G
 
 
 // DESTINOS DISTINTOS A LOS ASOCIADOS
-
 const querygetDistintDest = "SELECT B.SOURCE_LOCATION_GID, " +
     "B.DEST_LOCATION_GID " +
     "FROM " +
@@ -19,8 +18,8 @@ const querygetDistintDest = "SELECT B.SOURCE_LOCATION_GID, " +
     "WHERE POWER_UNIT_GID = 'TSP.'||$1 " +
     "AND DRIVER_GID LIKE '%'||$2 " +
     "AND PESO_CARGUE != 0 " +
-    "AND FECHA_ORDER_RELEASE::DATE != NOW()::DATE "+
-") A " +
+    "AND FECHA_ORDER_RELEASE::DATE != NOW()::DATE " +
+    ") A " +
     "RIGHT JOIN ( " +
     "SELECT DISTINCT SOURCE_LOCATION_GID " +
     ",DEST_LOCATION_GID " +
@@ -32,7 +31,7 @@ const querygetDistintDest = "SELECT B.SOURCE_LOCATION_GID, " +
     "WHERE A.SOURCE_LOCATION_GID IS NULL";
 
 
-    // PLACA Y CEDULA 
+// PLACA Y CEDULA 
 const querygetPowerDriver = "SELECT DISTINCT POWER_UNIT_GID, DRIVER_GID " +
     "FROM OTM.OT_SHIPMENT_BUY " +
     "WHERE POWER_UNIT_GID = 'TSP.'||$1 AND " +
@@ -40,12 +39,34 @@ const querygetPowerDriver = "SELECT DISTINCT POWER_UNIT_GID, DRIVER_GID " +
     "FECHA_ORDER_RELEASE::DATE != NOW()::DATE";
 
 
-    //Todos los datos
+//Todos los datos
+const queryAllData = "SELECT POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DEST_LOCATION_GID " +
+    "FROM OTM.OT_SHIPMENT_BUY ";
 
-    const queryAllData = "SELECT POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DEST_LOCATION_GID   FROM OTM.OT_SHIPMENT_BUY";
+// traer todos los usuarios
+const queryAllUserPass = "SELECT idusuario, claveencr FROM Usuarios";
 
+// traer el shipment gid para la impresion 
+const querygetPrintShipment = "SELECT OSB.SHIPMENT_GID, OSB.POWER_UNIT_GID, OSB.DRIVER_GID, " +
+    "OSB.PESO_CARGUE, OSB.SOURCE_LOCATION_GID, OSB.DEST_LOCATION_GID, OSB.FECHA_ORDER_RELEASE, " +
+    "TO_CHAR(NOW(), 'YYYYMMDD') AS FECHA_IMPRESION " +
+    "FROM ( " +
+    " SELECT DISTINCT MIN(SHIPMENT_GID) AS SHIPMENT_GID " +
+    "FROM OTM.OT_SHIPMENT_BUY " +
+    " WHERE POWER_UNIT_GID = 'TSP.' || $1 AND DRIVER_GID LIKE '%' || $2 AND " +
+    "PESO_CARGUE != 0 AND SOURCE_LOCATION_GID = $3 AND " +
+    "DEST_LOCATION_GID = $4 AND FECHA_ORDER_RELEASE:: DATE != NOW():: DATE " +
+    ") QR " +
+    "INNER JOIN OTM.OT_SHIPMENT_BUY OSB ON(OSB.SHIPMENT_GID = QR.SHIPMENT_GID) ";
 
-    const queryAllUserPass = "SELECT idusuario, claveencr FROM Usuarios"
+// datos para validar si esta inactivo y si expiro la licencia 
+const querygetDriverValid = "SELECT DRIVER_GID,DRIVER_FULL_NAME, LICENCIA, EXPIRACION_LICENCIA, IS_ACTIVE " +
+    "FROM  OTM.OT_DRIVER " +
+    "WHERE DRIVER_GID LIKE '%'|| $1 ";
+
+// datos para verificar VENCIMIENTO SOAT,  VENCIMIENTO TECNOMECANICA, PLACA INACTIVA
+const querygetPowerValid = "SELECT PLACA,PROPIETARIO,VENCE_SOAT,VENCE_TECNOMECANICA,IS_ACTIVE "+
+"FROM OTM.OT_POWER_UNIT WHERE PLACA = 'TSP.'||$1 ";
 
 
 module.exports = {
@@ -53,8 +74,12 @@ module.exports = {
     querygetDistintDest,
     querygetPowerDriver,
     queryAllData,
-    queryAllUserPass
+    queryAllUserPass,
+    querygetPrintShipment,
+    querygetDriverValid,
+    querygetPowerValid
 
-    
+
+
 }
 
