@@ -44,7 +44,7 @@ const queryAllData = "SELECT POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DE
     "FROM OTM.OT_SHIPMENT_BUY ";
 
 // traer todos los usuarios
-const queryAllUserPass = "SELECT idusuario, claveencr FROM Usuarios";
+const queryAllUserPass = "SELECT idusuario, claveencr, email FROM Usuarios";
 
 // traer el shipment gid para la impresion 
 const querygetPrintShipment = "SELECT OSB.SHIPMENT_GID, OSB.POWER_UNIT_GID, OSB.DRIVER_GID, " +
