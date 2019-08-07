@@ -283,7 +283,6 @@ const getPrintShipment = (request, response) => {
 
 }
 
-
 // datos para validar si esta inactivo y si expiro la licencia 
 const getDriverValid = (request, response) => {
     const pool = dbConnection();
@@ -374,6 +373,28 @@ const getPowerValid = (request, response) => {
 }
 
 
+// add log de los reportes generados
+const addOperationReports = (request, response) => {
+    const pool = dbConnection();
+    const { shipment_gid, driver_gid, power_unit_gid, insert_date, insert_user } = request.body;
+    pool.query(ordenCargaPersistence.queryAddOperation, [shipment_gid, driver_gid, power_unit_gid, insert_date, insert_user], (error, results) => {
+        if (error) {
+            response.json({
+                status: 500,
+                error: true,
+                response: null
+            });
+        } else {
+            response.json({
+                status: 200,
+                error: null,
+                response: 'Registro insertado correctamente'
+            });
+        }
+    });
+}
+
+
 module.exports = {
     getDestinosAsociados,
     getDestinosDistintos,
@@ -382,7 +403,6 @@ module.exports = {
     getAllUserPass,
     getPrintShipment,
     getDriverValid,
-    getPowerValid
-
-
+    getPowerValid,
+    addOperationReports
 }

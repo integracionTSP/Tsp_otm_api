@@ -6,6 +6,7 @@ const morgan = require('morgan');
 
 const ordenCargaRoutes = require('./router/ordenCargaRouter/ordenCarga.router')
 const mailRoutes = require('./router/mailRouter/mail.router')
+const reporteRoutes = require('./router/reporteRouter/reporte.router')
 
 //------------------------------------------------------
 
@@ -35,6 +36,8 @@ app.use((req, res, next) => {
 app.use('/api/ordenCarga', ordenCargaRoutes);
 
 app.use('/api/mail', mailRoutes);
+
+app.use('/api/reportes',reporteRoutes);
 //---------------------------------
 
 

@@ -1,4 +1,3 @@
-
 // DESTINOS ASOCIADOS AL CONDUCTOR
 const querygetDriverDest = "SELECT DISTINCT SOURCE_LOCATION_GID, DEST_LOCATION_GID " +
     "FROM OTM.OT_SHIPMENT_BUY " +
@@ -44,7 +43,7 @@ const queryAllData = "SELECT POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DE
     "FROM OTM.OT_SHIPMENT_BUY ";
 
 // traer todos los usuarios
-const queryAllUserPass = "SELECT idusuario, claveencr, email FROM Usuarios";
+const queryAllUserPass = "SELECT idusuario, claveencr FROM Usuarios";
 
 // traer el shipment gid para la impresion 
 const querygetPrintShipment = "SELECT OSB.SHIPMENT_GID, OSB.POWER_UNIT_GID, OSB.DRIVER_GID, " +
@@ -65,8 +64,12 @@ const querygetDriverValid = "SELECT DRIVER_GID,DRIVER_FULL_NAME, LICENCIA, EXPIR
     "WHERE DRIVER_GID LIKE '%'|| $1 ";
 
 // datos para verificar VENCIMIENTO SOAT,  VENCIMIENTO TECNOMECANICA, PLACA INACTIVA
-const querygetPowerValid = "SELECT PLACA,PROPIETARIO,VENCE_SOAT,VENCE_TECNOMECANICA,IS_ACTIVE, TO_CHAR(NOW(), 'YYYY-MM-DD') AS FECHA_ACTUAL "+
-"FROM OTM.OT_POWER_UNIT WHERE PLACA = 'TSP.'||$1 ";
+const querygetPowerValid = "SELECT PLACA,PROPIETARIO,VENCE_SOAT,VENCE_TECNOMECANICA,IS_ACTIVE, TO_CHAR(NOW(), 'YYYY-MM-DD') AS FECHA_ACTUAL " +
+    "FROM OTM.OT_POWER_UNIT WHERE PLACA = 'TSP.'||$1 ";
+
+const queryAddOperation = "INSERT INTO OT_OPERACION_REPORTS(" +
+    "SHIPMENT_GID, DRIVER_GID, POWER_UNIT_GID, INSERT_DATE, INSERT_USER) " +
+    "VALUES ($1, $2, $3, $4, $5)";
 
 
 module.exports = {
@@ -77,9 +80,6 @@ module.exports = {
     queryAllUserPass,
     querygetPrintShipment,
     querygetDriverValid,
-    querygetPowerValid
-
-
-
+    querygetPowerValid,
+    queryAddOperation
 }
-
