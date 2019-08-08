@@ -20,7 +20,7 @@ module.exports = {
             to: p_to,
             subject: p_subject,
             text: p_body,
-            cc: 'adjog96@gmail.com'
+            cc: 'adjog96@gmail.com , ajhen217@gmail.com'
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
