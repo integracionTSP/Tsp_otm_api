@@ -333,6 +333,7 @@ const getPowerValid = (request, response) => {
     const pool = dbConnection();
 
     let POWER_UNIT_GID = request.params.PLACA;
+    
 
     console.log("Entrando a getPowerValid  ");
     pool.query(ordenCargaPersistence.querygetPowerValid, [POWER_UNIT_GID], (error, results) => {
@@ -368,8 +369,52 @@ const getPowerValid = (request, response) => {
         }
         pool.end();
     });
+}
 
 
+
+// datos para validar si esta inactivo y si expiro la licencia 
+const getPowerDriverValid = (request, response) => {
+    const pool = dbConnection();
+
+    let POWER_UNIT_GID = request.params.PLACA;
+    let DRIVER_GID = request.params.DRIVER_GID;
+   
+
+    console.log("Entrando a getPowerDriverValid ");
+    pool.query(ordenCargaPersistence.querygetPowerValid, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
+        if (error) {
+            response.json({
+                status: 500,
+                error: true,
+                response: null
+            });
+            //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
+            console.log("Error en ordenCargaController.js => getPowerDriverValid  ");
+            console.log(error);
+
+        } else {
+            if (results.rows.length > 0) {
+                response.json({
+                    status: 200,
+                    error: null,
+                    response: results.rows
+                });
+                //response.send(JSON.stringify({ "status": 200, "error": null, "response": results.rows }));
+                console.log(results.rows);
+            } else {
+                response.json({
+                    status: 404,
+                    error: 1,
+                    response: 'No existe movimiento con datos ingresados'
+                });
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
+                console.log("No existe movimiento con datos ingresados");
+            }
+
+        }
+        pool.end();
+    });
 }
 
 
@@ -384,12 +429,16 @@ const addOperationReports = (request, response) => {
                 error: true,
                 response: null
             });
+            console.log(error);
+            
         } else {
             response.json({
                 status: 200,
                 error: null,
                 response: 'Registro insertado correctamente'
             });
+
+            console.log(response);
         }
     });
 }
@@ -404,5 +453,6 @@ module.exports = {
     getPrintShipment,
     getDriverValid,
     getPowerValid,
+    getPowerDriverValid ,
     addOperationReports
 }

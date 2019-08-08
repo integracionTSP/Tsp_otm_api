@@ -68,9 +68,29 @@ const querygetPowerValid = "SELECT PLACA,PROPIETARIO,VENCE_SOAT,VENCE_TECNOMECAN
     "FROM OTM.OT_POWER_UNIT WHERE PLACA = 'TSP.'||$1 ";
 
 
+
+const querygetPoweDiverValid = "SELECT DISTINCT PU.PLACA "+
+                                ",PU.PROPIETARIO "+
+                                ",PU.VENCE_SOAT "+
+                                ",PU.VENCE_TECNOMECANICA "+
+                                ",PU.IS_ACTIVE AS POWER_ACTIVE "+
+                                ",D.DRIVER_GID "+
+                                ",D.DRIVER_FULL_NAME "+
+                                ",D.LICENCIA "+
+                                ",D.EXPIRACION_LICENCIA "+
+                                ",D.IS_ACTIVE AS DIVER_ACTIVE, "+
+                                "TO_CHAR(NOW(), 'YYYY-MM-DD') AS FECHA_ACTUAL "+
+                                "FROM OTM.OT_POWER_UNIT PU "+
+                               " INNER JOIN OTM.OT_SHIPMENT_BUY SB ON ( "+
+                                   " SB.POWER_UNIT_GID = PU.PLACA) "+
+                                "INNER JOIN OTM.OT_DRIVER D ON (D.DRIVER_GID = SB.DRIVER_GID) "+
+                                "WHERE PU.PLACA = 'TSP.'||$1 "+
+                                "AND D.DRIVER_GID LIKE '%'||$2 ";
+
+
     
 
-const queryAddOperation = "INSERT INTO OT_OPERACION_REPORTS(" +
+const queryAddOperation = "INSERT INTO otm.OT_ORDEN_CARGUE(" +
     "SHIPMENT_GID, DRIVER_GID, POWER_UNIT_GID, INSERT_DATE, INSERT_USER) " +
     "VALUES ($1, $2, $3, $4, $5)";
 
@@ -84,5 +104,6 @@ module.exports = {
     querygetPrintShipment,
     querygetDriverValid,
     querygetPowerValid,
+    querygetPoweDiverValid ,
     queryAddOperation
 }

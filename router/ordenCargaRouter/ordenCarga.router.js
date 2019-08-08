@@ -27,6 +27,10 @@ router.route('/getDriverValid/:DRIVER_GID')
 router.route('/getPowerValid/:PLACA')
     .get(ordenCargaController.getPowerValid);
 
+
+router.route('/getPowerDriverValid/:PLACA/:DRIVER_GID')
+    .get(ordenCargaController.getPowerDriverValid);
+
 router.route('/saveReports')
     .post(ordenCargaController.addOperationReports);
 
