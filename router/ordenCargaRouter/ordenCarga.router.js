@@ -34,6 +34,7 @@ router.route('/getPowerDriverValid/:PLACA/:DRIVER_GID')
 router.route('/saveReports')
     .post(ordenCargaController.addOperationReports);
 
-
+router.route('/getAllUsers')
+    .get(ordenCargaController.getAllUsers);
 
 module.exports = router;
