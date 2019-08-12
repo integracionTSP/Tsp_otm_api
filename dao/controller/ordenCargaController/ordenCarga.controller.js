@@ -446,46 +446,16 @@ const addOperationReports = (request, response) => {
 const getAllUsers = (request, response) => {
     const pool = dbConnection();
     console.log("Entrando a getAllUsers ");
-    pool.query(ordenCargaPersistence.queryAllUserPass, (error, results) => {
-        if (error) {
-            response.json({
-                status: 500,
-                error: true,
-                response: null
-            });
-            //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
-            console.log("Error en ordenCargaController.js =>  getAllUserPass ");
-            console.log(error);
+    n = 0;
+    pool.query(ordenCargaPersistence.queryAllUserPass, (error, results) => {let usuarios = results.rows;
 
-        } else {
-            if (results.rows.length > 0) {
-                console.log(results.rows);
-                let usuarios = results.rows;
-                usuarios.forEach((user) => {
-                    pool.query(ordenCargaPersistence.queryUpdateDefaultPassWord, [cryptoJS.SHA512(user.idusuario), user.idusuario],
-                        (error, results) => {
-                            if (error) {
-                                console.log(error);
-                            } else {
-                                console.log(results + 'Todo esta bien negro')
-                            }
-                    });
+        usuarios.forEach((user) => {
+           pool.query(ordenCargaPersistence.queryUpdateDefaultPassWord, [cryptoJS.SHA512(user.idusuario).toString(), user.idusuario]);
+          n=n+1;
+          console.log(n)
+        })
+        console.log('Finalizó')
 
-                })
-
-                //response.send(JSON.stringify({ "status": 200, "error": null, "response": results.rows }));
-
-            } else {
-                response.json({
-                    status: 404,
-                    error: 1,
-                    response: 'No existe movimiento con datos ingresados'
-                });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
-            }
-
-        }
         pool.end();
     });
 

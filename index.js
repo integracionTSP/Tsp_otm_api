@@ -43,7 +43,7 @@ app.use('/api/reportes',reporteRoutes);
 
 
 // Iniciar el server
-app.listen(3000, () => {
+app.listen(4000, () => {
     console.log(`Server en puerto: ${PORT}`);
 });
 //------------------
