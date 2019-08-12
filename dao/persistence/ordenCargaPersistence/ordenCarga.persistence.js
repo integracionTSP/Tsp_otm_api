@@ -92,7 +92,7 @@ const querygetPoweDiverValid = "SELECT DISTINCT PU.PLACA "+
 
 const queryAddOperation = "INSERT INTO otm.OT_ORDEN_CARGUE(" +
     "SHIPMENT_GID, DRIVER_GID, POWER_UNIT_GID, INSERT_DATE, INSERT_USER,ORDER_DATE , SOURCE_LOCATION_GID , DEST_LOCATION_GID) " +
-    "VALUES ($1, $2, $3, $4, $5,$6,$7,$8)";
+    "VALUES ($1, $2, $3, $4, $5,$6,$7,$8) returning order_id";
 
 const queryUpdateDefaultPassWord = "UPDATE usuarios SET ANGULAR_PASSWORD = $1 WHERE idusuario = $2";
 

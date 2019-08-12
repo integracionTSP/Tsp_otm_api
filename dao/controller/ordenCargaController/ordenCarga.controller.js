@@ -421,8 +421,11 @@ const getPowerDriverValid = (request, response) => {
 // add log de los reportes generados
 const addOperationReports = (request, response) => {
     const pool = dbConnection();
-    const { shipment_gid, driver_gid, power_unit_gid, insert_date, insert_user, order_date, source_location_gid, dest_location_gid } = request.body;
-    pool.query(ordenCargaPersistence.queryAddOperation, [shipment_gid, driver_gid, power_unit_gid, insert_date, insert_user, order_date, source_location_gid, dest_location_gid], (error, results) => {
+    const { shipment_gid, driver_gid, power_unit_gid, insert_date, insert_user, order_date, 
+        source_location_gid, dest_location_gid } = request.body;
+        pool.query(ordenCargaPersistence.queryAddOperation, 
+            [shipment_gid, driver_gid, power_unit_gid, insert_date, insert_user, order_date,
+             source_location_gid, dest_location_gid], (error, results) => {
         if (error) {
             response.json({
                 status: 500,
@@ -435,7 +438,8 @@ const addOperationReports = (request, response) => {
             response.json({
                 status: 200,
                 error: null,
-                response: 'Registro insertado correctamente'
+                response: 'Registro insertado correctamente',
+                data:results.rows[0]
             });
 
             console.log(response);
