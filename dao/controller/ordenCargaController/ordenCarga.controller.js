@@ -382,7 +382,7 @@ const getPowerDriverValid = (request, response) => {
 
 
     console.log("Entrando a getPowerDriverValid ");
-    pool.query(ordenCargaPersistence.querygetPowerValid, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
+    pool.query(ordenCargaPersistence.querygetPowerDriver, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
         if (error) {
             response.json({
                 status: 500,
