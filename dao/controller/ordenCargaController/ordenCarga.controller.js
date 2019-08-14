@@ -36,10 +36,10 @@ const getDestinosAsociados = (request, response) => {
                 response.json({
                     status: 404,
                     error: 1,
-                    response: 'No existe movimiento con datos ingresados'
+                    response: null
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
@@ -84,10 +84,10 @@ const getDestinosDistintos = (request, response) => {
                 response.json({
                     status: 404,
                     error: 1,
-                    response: "No existe movimiento con datos ingresados"
+                    response: null
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
@@ -133,10 +133,10 @@ const getPlacasIdent = (request, response) => {
                 response.json({
                     status: 404,
                     error: 1,
-                    response: 'No existe movimiento con datos ingresados'
+                    response: null
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
@@ -178,10 +178,10 @@ const getTodoDatos = (request, response) => {
                 response.json({
                     status: 404,
                     error: 1,
-                    response: 'No existe movimiento con datos ingresados'
+                    response: null
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
@@ -220,10 +220,10 @@ const getAllUserPass = (request, response) => {
                 response.json({
                     status: 404,
                     error: 1,
-                    response: 'No existe movimiento con datos ingresados'
+                    response: null
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
@@ -272,8 +272,8 @@ const getPrintShipment = (request, response) => {
                     error: 1,
                     response: 'No existe movimientos con datos ingresados'
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
@@ -313,10 +313,10 @@ const getDriverValid = (request, response) => {
                 response.json({
                     status: 404,
                     error: 1,
-                    response: "No existe movimiento con datos ingresados"
+                    response: null
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
@@ -360,10 +360,10 @@ const getPowerValid = (request, response) => {
                 response.json({
                     status: 404,
                     error: 1,
-                    response: 'No existe movimiento con datos ingresados'
+                    response: null
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
@@ -406,10 +406,10 @@ const getPowerDriverValid = (request, response) => {
                 response.json({
                     status: 404,
                     error: 1,
-                    response: 'No existe movimiento con datos ingresados'
+                    response: null
                 });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": "No existe movimiento con datos ingresados" }));
-                console.log("No existe movimiento con datos ingresados");
+                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
+                console.log(null);
             }
 
         }
