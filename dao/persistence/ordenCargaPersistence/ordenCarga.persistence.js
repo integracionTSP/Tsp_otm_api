@@ -47,7 +47,8 @@ const queryAllUserPass = "SELECT idusuario, claveencr, angular_password, email  
 
 // traer el shipment gid para la impresion 
 const querygetPrintShipment = `SELECT
-OSB.SHIPMENT_GID
+OSB.SHIPMENT_GID,
+OSB.FECHA_ORDER_RELEASE
 FROM
 (	
 SELECT DISTINCT
