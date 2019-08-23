@@ -9,9 +9,11 @@ const getDestinosAsociados = (request, response) => {
     const pool = dbConnection();
 
     // parametros placa(POWER_UNIT_GID) y conductor(DRIVER_GID)
-    let POWER_UNIT_GID = request.params.POWER_UNIT_GID;
+    let POWER_UNIT_GID = request.params.POWER_UNIT_GID.toString().toUpperCase();
     let DRIVER_GID = request.params.DRIVER_GID;
     console.log("Entrando a getDestinosAsociados");
+   
+    
     pool.query(ordenCargaPersistence.querygetDriverDest, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
         if (error) {
 
@@ -332,9 +334,11 @@ const getDriverValid = (request, response) => {
 const getPowerValid = (request, response) => {
     const pool = dbConnection();
 
-    let POWER_UNIT_GID = request.params.PLACA;
+    let POWER_UNIT_GID = request.params.PLACA.toString().toUpperCase();
+  
 
-
+    console.log(POWER_UNIT_GID);
+    
     console.log("Entrando a getPowerValid  ");
     pool.query(ordenCargaPersistence.querygetPowerValid, [POWER_UNIT_GID], (error, results) => {
         if (error) {
@@ -377,7 +381,7 @@ const getPowerValid = (request, response) => {
 const getPowerDriverValid = (request, response) => {
     const pool = dbConnection();
 
-    let POWER_UNIT_GID = request.params.PLACA;
+    let POWER_UNIT_GID = request.params.PLACA.toString().toUpperCase();;
     let DRIVER_GID = request.params.DRIVER_GID;
 
 
