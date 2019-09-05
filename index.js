@@ -7,6 +7,8 @@ const morgan = require('morgan');
 const ordenCargaRoutes = require('./router/ordenCargaRouter/ordenCarga.router')
 const mailRoutes = require('./router/mailRouter/mail.router')
 const reporteRoutes = require('./router/reporteRouter/reporte.router')
+const constCumplidoRoutes = require ('./router/constCumplidoRouter/constCumplido.router')
+const authRoutes = require ('./router/authRouter/auth.router')
 
 //------------------------------------------------------
 
@@ -38,6 +40,10 @@ app.use('/api/ordenCarga', ordenCargaRoutes);
 app.use('/api/mail', mailRoutes);
 
 app.use('/api/reportes',reporteRoutes);
+
+app.use('/api/constCumplido', constCumplidoRoutes);
+
+app.use('/api/auth',authRoutes)
 //---------------------------------
 
 
