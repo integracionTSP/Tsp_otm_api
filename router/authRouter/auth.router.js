@@ -11,5 +11,8 @@ router.route('/getAllUserPass')
 router.route('/getAllUsers')
     .get(authController.getAllUsers);
 
+router.route('/getUrlEnpoints')
+.get(authController.getUrlEndpoint);
+
 module.exports = router;
 
