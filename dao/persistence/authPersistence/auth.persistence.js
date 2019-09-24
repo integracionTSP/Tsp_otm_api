@@ -1,5 +1,5 @@
 // traer todos los usuarios
-const queryAllUserPass = "SELECT idusuario, angular_password, email  FROM Usuarios";
+const queryAllUserPass = "queryAllUserPass";
 
 // actualizar contraseña
 const queryUpdateDefaultPassWord = "UPDATE usuarios SET ANGULAR_PASSWORD = $1 WHERE idusuario = $2";

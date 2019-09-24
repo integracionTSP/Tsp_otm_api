@@ -1,13 +1,16 @@
 const dbConnection = require('../../../config/database/conexiondb');
 const authPersistence = require('../../persistence/authPersistence/auth.persistence');
+const functionUtil = require('../../../helper/util/function.util');
 const cryptoJS = require('crypto-js');
 
 
 // todos los usuarios y contraseñas
-const getAllUserPass = (request, response) => {
+const getAllUserPass = async (request, response) => {
     const pool = dbConnection();
     console.log("Entrando a getAllUserPass ");
-    pool.query(authPersistence.queryAllUserPass, (error, results) => {
+
+    await functionUtil.getQuery(authPersistence.queryAllUserPass).then((result)=>{
+    pool.query(result, (error, results) => {
         if (error) {
             response.json({
                 status: 500,
@@ -15,7 +18,7 @@ const getAllUserPass = (request, response) => {
                 response: null
             });
             //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
-            console.log("Error en ordenCargaController.js =>  getAllUserPass ");
+            console.log("Error en authController.js =>  getAllUserPass ");
             console.log(error);
 
         } else {
@@ -40,7 +43,7 @@ const getAllUserPass = (request, response) => {
         }
         pool.end();
     });
-
+});
 
 }
 
@@ -78,7 +81,7 @@ const getUrlEndpoint = (request, response) => {
                 response: null
             });
             //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
-            console.log("Error en ordenCargaController.js =>  getUrlEndpoint ");
+            console.log("Error en authController.js =>  getUrlEndpoint ");
             console.log(error);
 
         } else {

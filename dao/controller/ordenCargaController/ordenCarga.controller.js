@@ -1,20 +1,25 @@
 const dbConnection = require('../../../config/database/conexiondb');
 const ordenCargaPersistence = require('../../persistence/ordenCargaPersistence/ordenCarga.persistence');
+const functionUtil = require('../../../helper/util/function.util');
 const cryptoJS = require('crypto-js');
 
 
 
 //Consultar DESTINOS ASOCIADOS AL CONDUCTOR
-const getDestinosAsociados = (request, response) => {
+const getDestinosAsociados = async (request, response) => {
     const pool = dbConnection();
+
+
 
     // parametros placa(POWER_UNIT_GID) y conductor(DRIVER_GID)
     let POWER_UNIT_GID = request.params.POWER_UNIT_GID.toString().toUpperCase();
     let DRIVER_GID = request.params.DRIVER_GID;
     console.log("Entrando a getDestinosAsociados");
-   
     
-    pool.query(ordenCargaPersistence.querygetDriverDest, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
+    
+    await functionUtil.getQuery(ordenCargaPersistence.querygetDriverDest).then((result)=>{
+    
+    pool.query(result, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
         if (error) {
 
             console.log("Error en ordenCargaController.js => getDestinosAsociados");
@@ -47,21 +52,24 @@ const getDestinosAsociados = (request, response) => {
         }
         pool.end();
     });
-
+});
 
 }
 
 
 
 // DESTINOS DISTINTOS A LOS ASOCIADOS
-const getDestinosDistintos = (request, response) => {
+const getDestinosDistintos = async (request, response) => {
     const pool = dbConnection();
 
     // parametros placa(POWER_UNIT_GID) y conductor(DRIVER_GID)
     let POWER_UNIT_GID = request.params.POWER_UNIT_GID;
     let DRIVER_GID = request.params.DRIVER_GID;
     console.log("Entrando a getDestinosDistintos");
-    pool.query(ordenCargaPersistence.querygetDistintDest, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
+
+    await functionUtil.getQuery(ordenCargaPersistence.querygetDistintDest).then((result)=>{
+
+    pool.query(result, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
         if (error) {
             //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
             console.log("Error en ordenCargaController.js => getDestinosDistintos");
@@ -95,7 +103,7 @@ const getDestinosDistintos = (request, response) => {
         }
         pool.end();
     });
-
+});
 
 }
 
@@ -199,7 +207,7 @@ const getTodoDatos = (request, response) => {
 
 
 // datos para imprimir
-const getPrintShipment = (request, response) => {
+const getPrintShipment = async (request, response) => {
 
     const pool = dbConnection();
 
@@ -209,7 +217,9 @@ const getPrintShipment = (request, response) => {
     let DEST_LOCATION_GID = request.params.DEST_LOCATION_GID;
 
     console.log("Entrando a getPrintShipment ");
-    pool.query(ordenCargaPersistence.querygetPrintShipment, [POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DEST_LOCATION_GID], (error, results) => {
+
+    await functionUtil.getQuery(ordenCargaPersistence.querygetPrintShipment).then((result)=>{
+    pool.query(result, [POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DEST_LOCATION_GID], (error, results) => {
         if (error) {
             response.json({
                 status: 500,
@@ -243,16 +253,20 @@ const getPrintShipment = (request, response) => {
         pool.end();
     });
 
+});
+
 
 }
 
 // datos para validar si esta inactivo y si expiro la licencia 
-const getDriverValid = (request, response) => {
+const getDriverValid = async (request, response) => {
     const pool = dbConnection();
     let DRIVER_GID = request.params.DRIVER_GID;
 
     console.log("Entrando a getDriverValid  ");
-    pool.query(ordenCargaPersistence.querygetDriverValid, [DRIVER_GID], (error, results) => {
+
+    await functionUtil.getQuery(ordenCargaPersistence.querygetDriverValid).then((result)=>{
+    pool.query(result, [DRIVER_GID], (error, results) => {
         if (error) {
             response.json({
                 status: 500,
@@ -285,14 +299,14 @@ const getDriverValid = (request, response) => {
         }
         pool.end();
     });
-
+});
 
 }
 
 
 
 // datos para validar si esta inactivo y si expiro la licencia 
-const getPowerValid = (request, response) => {
+const getPowerValid = async (request, response) => {
     const pool = dbConnection();
 
     let POWER_UNIT_GID = request.params.PLACA.toString().toUpperCase();
@@ -301,7 +315,9 @@ const getPowerValid = (request, response) => {
     console.log(POWER_UNIT_GID);
     
     console.log("Entrando a getPowerValid  ");
-    pool.query(ordenCargaPersistence.querygetPowerValid, [POWER_UNIT_GID], (error, results) => {
+
+    await functionUtil.getQuery(ordenCargaPersistence.querygetPowerValid).then((result)=>{
+    pool.query(result, [POWER_UNIT_GID], (error, results) => {
         if (error) {
             response.json({
                 status: 500,
@@ -334,6 +350,8 @@ const getPowerValid = (request, response) => {
         }
         pool.end();
     });
+
+});
 }
 
 
@@ -384,11 +402,15 @@ const getPowerDriverValid = (request, response) => {
 
 
 // add log de los reportes generados
-const addOperationReports = (request, response) => {
+const addOperationReports = async (request, response) => {
     const pool = dbConnection();
+
+
+    await functionUtil.getQuery(ordenCargaPersistence.queryAddOperation).then((result)=>{
+
     const { shipment_gid, driver_gid, power_unit_gid, insert_date, insert_user, order_date, 
         source_location_gid, dest_location_gid } = request.body;
-        pool.query(ordenCargaPersistence.queryAddOperation, 
+        pool.query(result, 
             [shipment_gid, driver_gid, power_unit_gid, insert_date, insert_user, order_date,
              source_location_gid, dest_location_gid], (error, results) => {
         if (error) {
@@ -407,9 +429,10 @@ const addOperationReports = (request, response) => {
                 data:results.rows[0]
             });
 
-            console.log(response);
+            console.log('Registro insertado correctamente');
         }
     });
+});
 }
 
 
