@@ -9,6 +9,7 @@ const mailRoutes = require('./router/mailRouter/mail.router')
 const reporteRoutes = require('./router/reporteRouter/reporte.router')
 const constCumplidoRoutes = require ('./router/constCumplidoRouter/constCumplido.router')
 const authRoutes = require ('./router/authRouter/auth.router')
+const genPedidoRoutes = require('./router/genPedidoRouter/genPedido.router')
 
 
 //------------------------------------------------------
@@ -45,6 +46,8 @@ app.use('/api/reportes',reporteRoutes);
 app.use('/api/constCumplido', constCumplidoRoutes);
 
 app.use('/api/auth',authRoutes)
+
+app.use('/api/genPedido', genPedidoRoutes)
 //---------------------------------
 
 
