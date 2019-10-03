@@ -6,5 +6,6 @@ const genPedidoController = require('./../../dao/controller/genPedidoController/
 router.route('/getGenPedido/:order_id')
     .get(genPedidoController.getGenOrder);
 
+  
 
 module.exports = router;
