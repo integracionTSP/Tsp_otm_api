@@ -24,25 +24,6 @@ fin.banco_transferencia bt ON bt.nit = a.nit
 WHERE bu.idusuario = $1 AND  a.codigo_agencia = $2   AND bt.estado_aprobacion = 'N' `
 
 
-
-// const queryCheckList = `SELECT DISTINCT  a.planilla
-// ,a.valor_planilla
-// ,a.nombre_agencia
-// ,a.nombre_conductor benficiario
-// ,a.valor_anticipo valor_cheque
-// ,a.banco
-// ,a.moneda
-// ,bu.idusuario usuario
-// ,a.nombre_agencia
-// ,a.codigo_agencia
-// ,a.cuenta
-// FROM fin.anticipo a
-// left JOIN 
-// fin.banco_usuario bu ON bu.agency_id = a.codigo_agencia
-// left JOIN 
-// fin.banco_transferencia bt ON bt.cuenta = a.cuenta
-// WHERE bu.idusuario = $1 AND  a.codigo_agencia = $2  `
-
 const queryActiveAccounts = `SELECT bt.nit
  ,bt.banco
 ,bt.cuenta
@@ -56,7 +37,9 @@ INNER JOIN
 fin.banco_transferencia bt ON bt.nit = a.nit
 WHERE bu.idusuario = $1
 AND a.codigo_agencia = $2
-AND estado_aprobacion = 'N' `
+AND estado_aprobacion = 'N'
+ORDER BY bt.nombre_cuenta ASC
+`
 
 const queryAccountDescription = `SELECT
  bt.reg_status
@@ -114,10 +97,8 @@ INSERT INTO fin.banco_transferencia  (
 	,secuencia
 	,primaria
     ,estado_aprobacion
-    ,user_update
-    ,creation_user
 	)
-VALUES ($1,$2,$3,$4,$5,$6,$7,$8,nextval('fin.seq_ban_transferencia'),'N','N',$9,$10)`
+VALUES ($1,$2,$3,$4,$5,$6,$7,$8,nextval('fin.seq_ban_transferencia'),'N','N')`
 
 
 

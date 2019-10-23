@@ -424,13 +424,13 @@ const AddAcount =  (request, response) => {
     const pool = dbConnection();
 
 
-    const {regStatus, dstrct,accountNit, bank, accountNumber, accountType,accountName, accountID, updateUser,creationUser  } = request.body;
+    const {regStatus, dstrct,accountNit, bank, accountNumber, accountType,accountName, accountID  } = request.body;
 
     console.log('campos traidos', request.body);
     
 
         pool.query(chequeOTMPersistence.queryAddAcount, 
-            [regStatus, dstrct,accountNit, bank, accountNumber, accountType,accountName, accountID, updateUser,creationUser   ], (error, results) => {
+            [regStatus, dstrct,accountNit, bank, accountNumber, accountType,accountName, accountID   ], (error, results) => {
         if (error) {
             response.json({
                 status: 500,
