@@ -108,156 +108,6 @@ const getDestinosDistintos = async (request, response) => {
 }
 
 
-
-// Placas e identificacion
-const getPlacasIdent = (request, response) => {
-
-    const pool = dbConnection();
-    // parametros placa(POWER_UNIT_GID) y conductor(DRIVER_GID)
-    let POWER_UNIT_GID = request.params.POWER_UNIT_GID;
-    let DRIVER_GID = request.params.DRIVER_GID;
-    console.log("Entrando a getPlacasIdent");
-    pool.query(ordenCargaPersistence.querygetPowerDriver, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
-        if (error) {
-
-            response.json({
-                status: 500,
-                error: true,
-                response: null
-            });
-            //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
-            console.log("Error en ordenCargaController.js =>  getPlacasIdent");
-            console.log(error);
-
-        } else {
-            if (results.rows.length > 0) {
-                response.json({
-                    status: 200,
-                    error: null,
-                    response: results.rows
-                });
-                //response.send(JSON.stringify({ "status": 200, "error": null, "response": results.rows }));
-                console.log(results.rows);
-            } else {
-
-                response.json({
-                    status: 404,
-                    error: 1,
-                    response: null
-                });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
-                console.log(null);
-            }
-
-        }
-        pool.end();
-    });
-
-
-}
-
-
-
-
-
-// todos los datos
-const getTodoDatos = (request, response) => {
-    const pool = dbConnection();
-    console.log("Entrando a getTodoDatos");
-    pool.query(ordenCargaPersistence.queryAllData, (error, results) => {
-        if (error) {
-            response.json({
-                status: 500,
-                error: true,
-                response: null
-            });
-            //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
-            console.log("Error en ordenCargaController.js =>  getTodoDatos");
-            console.log(error);
-
-        } else {
-            if (results.rows.length > 0) {
-                response.json({
-                    status: 200,
-                    error: null,
-                    response: results.rows
-                });
-                //response.send(JSON.stringify({ "status": 200, "error": null, "response": results.rows }));
-                console.log(results.rows);
-            } else {
-                response.json({
-                    status: 404,
-                    error: 1,
-                    response: null
-                });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
-                console.log(null);
-            }
-
-        }
-        pool.end();
-    });
-
-
-}
-
-
-
-
-
-
-// datos para imprimir
-const getPrintShipment = async (request, response) => {
-
-    const pool = dbConnection();
-
-    let POWER_UNIT_GID = request.params.POWER_UNIT_GID;
-    let DRIVER_GID = request.params.DRIVER_GID;
-    let SOURCE_LOCATION_GID = request.params.SOURCE_LOCATION_GID;
-    let DEST_LOCATION_GID = request.params.DEST_LOCATION_GID;
-
-    console.log("Entrando a getPrintShipment ");
-
-    await functionUtil.getQuery(ordenCargaPersistence.querygetPrintShipment).then((result)=>{
-    pool.query(result, [POWER_UNIT_GID, DRIVER_GID, SOURCE_LOCATION_GID, DEST_LOCATION_GID], (error, results) => {
-        if (error) {
-            response.json({
-                status: 500,
-                error: true,
-                response: null
-            });
-            //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
-            console.log("Error en ordenCargaController.js =>  getPrintShipment ");
-            console.log(error);
-
-        } else {
-            if (results.rows.length > 0) {
-                response.json({
-                    status: 200,
-                    error: null,
-                    response: results.rows
-                });
-                //response.send(JSON.stringify({ "status": 200, "error": null, "response": results.rows }));
-                console.log(results.rows);
-            } else {
-                response.json({
-                    status: 404,
-                    error: 1,
-                    response: 'No existe movimientos con datos ingresados'
-                });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
-                console.log(null);
-            }
-
-        }
-        pool.end();
-    });
-
-});
-
-
-}
-
 // datos para validar si esta inactivo y si expiro la licencia 
 const getDriverValid = async (request, response) => {
     const pool = dbConnection();
@@ -355,52 +205,6 @@ const getPowerValid = async (request, response) => {
 }
 
 
-
-// datos para validar si esta inactivo y si expiro la licencia 
-const getPowerDriverValid = (request, response) => {
-    const pool = dbConnection();
-
-    let POWER_UNIT_GID = request.params.PLACA.toString().toUpperCase();;
-    let DRIVER_GID = request.params.DRIVER_GID;
-
-
-    console.log("Entrando a getPowerDriverValid ");
-    pool.query(ordenCargaPersistence.querygetPowerDriver, [POWER_UNIT_GID, DRIVER_GID], (error, results) => {
-        if (error) {
-            response.json({
-                status: 500,
-                error: true,
-                response: null
-            });
-            //response.send(JSON.stringify({ "status": 500, "error": error, "response": null }));
-            console.log("Error en ordenCargaController.js => getPowerDriverValid  ");
-            console.log(error);
-
-        } else {
-            if (results.rows.length > 0) {
-                response.json({
-                    status: 200,
-                    error: null,
-                    response: results.rows
-                });
-                //response.send(JSON.stringify({ "status": 200, "error": null, "response": results.rows }));
-                console.log(results.rows);
-            } else {
-                response.json({
-                    status: 404,
-                    error: 1,
-                    response: null
-                });
-                //response.send(JSON.stringify({ "status": 404, "error": 1, "response": null }));
-                console.log(null);
-            }
-
-        }
-        pool.end();
-    });
-}
-
-
 // add log de los reportes generados
 const addOperationReports = async (request, response) => {
     const pool = dbConnection();
@@ -441,13 +245,9 @@ const addOperationReports = async (request, response) => {
 module.exports = {
     getDestinosAsociados,
     getDestinosDistintos,
-    getPlacasIdent,
-    getTodoDatos,
-    getPrintShipment,
     getDriverValid,
     getPowerValid,
-    getPowerDriverValid,
-    addOperationReports,
+    addOperationReports
    
 }
 

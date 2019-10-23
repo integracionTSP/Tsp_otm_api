@@ -9,16 +9,6 @@ router.route('/getAsociados/:POWER_UNIT_GID/:DRIVER_GID')
 router.route('/getDistintos/:POWER_UNIT_GID/:DRIVER_GID')
     .get(ordenCargaController.getDestinosDistintos);
 
-router.route('/getPlacaId/:POWER_UNIT_GID/:DRIVER_GID')
-    .get(ordenCargaController.getPlacasIdent);
-
-router.route('/getTodoDatos')
-    .get(ordenCargaController.getTodoDatos);
-
-
-router.route('/getPrintShipment/:POWER_UNIT_GID/:DRIVER_GID/:SOURCE_LOCATION_GID/:DEST_LOCATION_GID')
-    .get(ordenCargaController.getPrintShipment);
-
 router.route('/getDriverValid/:DRIVER_GID')
     .get(ordenCargaController.getDriverValid);
 
@@ -26,11 +16,9 @@ router.route('/getPowerValid/:PLACA')
     .get(ordenCargaController.getPowerValid);
 
 
-router.route('/getPowerDriverValid/:PLACA/:DRIVER_GID')
-    .get(ordenCargaController.getPowerDriverValid);
-
 router.route('/saveReports')
     .post(ordenCargaController.addOperationReports);
+
 
 
 module.exports = router;

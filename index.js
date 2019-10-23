@@ -10,12 +10,13 @@ const reporteRoutes = require('./router/reporteRouter/reporte.router')
 const constCumplidoRoutes = require ('./router/constCumplidoRouter/constCumplido.router')
 const authRoutes = require ('./router/authRouter/auth.router')
 const genPedidoRoutes = require('./router/genPedidoRouter/genPedido.router')
+const chequeOTMRouter =  require('./router/operationRouter/chequeOTM.router')
 
 
 //------------------------------------------------------
 
 
-let app = express();
+const app = express();
 const PORT = 3000;
 
 app.set('json spaces', 4)
@@ -48,6 +49,8 @@ app.use('/api/constCumplido', constCumplidoRoutes);
 app.use('/api/auth',authRoutes)
 
 app.use('/api/genPedido', genPedidoRoutes)
+
+app.use('/api/chequeOTM',chequeOTMRouter)
 //---------------------------------
 
 
