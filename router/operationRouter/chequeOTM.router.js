@@ -11,11 +11,11 @@ router.route('/getAgencyiD/:IDUSER')
 .get(chequeOTMController.getCheckList);
 
 
- router.route('/getActiveAccounts/:IDUSER/:AGENCYID')
+ router.route('/getActiveAccounts/:IDUSER/:AGENCYID/:ACCOUNTNIT')
 .get(chequeOTMController.getActiveAccounts);
 
 
- router.route('/getAccountDescription/:IDUSER/:AGENCYID/:ACCOUNT')
+ router.route('/getAccountDescription/:IDUSER/:AGENCYID/:ACCOUNT/:ACCOUNTNIT')
  .get(chequeOTMController.getAccountDescription);
 
 
@@ -37,6 +37,9 @@ router.route('/updateAdvanced')
 
 router.route('/updateAdvancedConfirm')
 .post(chequeOTMController.updateAdvancedConfirm);
+
+router.route('/updateAdvancedValue')
+.post(chequeOTMController.updateAdvancedValue);
 
 
 router.route('/AddAcount')

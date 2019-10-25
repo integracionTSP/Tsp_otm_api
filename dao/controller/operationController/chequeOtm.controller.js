@@ -109,12 +109,13 @@ const getActiveAccounts =  (request, response) => {
 
     let IDUSER = request.params.IDUSER;
     let AGENCYID = request.params.AGENCYID;
+    let ACCOUNTNIT =  request.params.ACCOUNTNIT
    
    
     console.log(request.params);
 
         console.log(' Entrando a getActiveAccounts');
-        pool.query(chequeOTMPersistence.queryActiveAccounts, [IDUSER,AGENCYID], (error,results)=>{
+        pool.query(chequeOTMPersistence.queryActiveAccounts, [IDUSER,AGENCYID,ACCOUNTNIT], (error,results)=>{
             if (error) {
     
                 console.log("Error en chequeOTMController.js =>  getActiveAccounts");
@@ -162,12 +163,12 @@ const getAccountDescription =  (request, response) => {
     let IDUSER = request.params.IDUSER;
     let AGENCYID = request.params.AGENCYID;
     let ACCOUNT = request.params.ACCOUNT;
-   
+    let ACCOUNTNIT = request.params.ACCOUNTNIT;
    
     console.log(request.params);
 
         console.log(' Entrando a getAccountDescription');
-        pool.query(chequeOTMPersistence.queryAccountDescription, [IDUSER,AGENCYID,ACCOUNT], (error,results)=>{
+        pool.query(chequeOTMPersistence.queryAccountDescription, [IDUSER,AGENCYID,ACCOUNT,ACCOUNTNIT], (error,results)=>{
             if (error) {
     
                 console.log("Error en chequeOTMController.js =>  getAccountDescription");
@@ -419,6 +420,41 @@ const updateAdvancedConfirm =  (request, response) => {
 }
 
 
+const updateAdvancedValue =  (request, response) => {
+    const pool = dbConnection();
+
+
+    const {advancedValue, shipmentGID } = request.body;
+
+    console.log('campos traidos', request.body);
+    
+
+        pool.query(chequeOTMPersistence.queryAdvancedValue, 
+            [advancedValue, shipmentGID ], (error, results) => {
+        if (error) {
+            response.json({
+                status: 500,
+                error: true,
+                response: null
+            });
+            console.log(error);
+
+        } else {
+            response.json({
+                status: 200,
+                error: null,
+                response: 'Registro actualizado correctamente',
+                data:results.rows[0]
+            });
+
+            console.log('Registro actualizado correctamente');
+        }
+    });
+
+}
+
+
+
 
 const AddAcount =  (request, response) => {
     const pool = dbConnection();
@@ -466,6 +502,7 @@ module.exports = {
     getAccountType,
     Updateadvanced,
     updateAdvancedConfirm,
+    updateAdvancedValue,
     AddAcount
 
 }
